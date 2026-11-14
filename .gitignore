@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.pytest_cache/
+dist/
+.claude/
+aci.docx
+.DS_Store

@@ -1,0 +1,6 @@
+jupyter
+nbconvert
+matplotlib
+pytest
+reportlab>=4.0
+pypdf>=4.0
