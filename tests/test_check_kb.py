@@ -174,3 +174,56 @@ def test_member_skeletons_exist_and_fail():
 def test_cli_exit_codes():
     assert ck.main([str(EXAMPLE), "--profile", "example"]) == 0
     assert ck.main([str(EXAMPLE)]) == 1
+
+
+# ---------- audit fixes ----------
+from conftest import synthetic_answer  # noqa: E402
+
+
+def test_full_profile_passes_for_complete_answer(tmp_path):
+    p = tmp_path / "answer.md"
+    p.write_text(synthetic_answer("Test Person", "T001"), encoding="utf-8")
+    rep = ck.check(p, "full")
+    assert rep.passed, rep.render()
+    assert not [m for s, m in rep.items if s == "WARN" and "words" in m]
+
+
+def test_comparison_written_before_binder():
+    facts, rules, errors = ck.parse_kb("bal(a, 5). req(a, 3). bal(b, 1). req(b, 3).\n"
+                                       "ok(E) :- ge(B, D), bal(E, B), req(E, D).")
+    assert not errors
+    assert ck.KB(facts, rules).run().model["ok"] == {("a",)}
+
+
+def test_negation_written_before_binder():
+    facts, rules, _ = ck.parse_kb("p(a). p(b). q(a).\nr(X) :- not q(X), p(X).")
+    assert ck.KB(facts, rules).run().model["r"] == {("b",)}
+
+
+def test_negation_with_anonymous_variable():
+    facts, rules, _ = ck.parse_kb("e(a). e(b). owns(a, car).\nwalker(X) :- e(X), not owns(X, _).")
+    assert ck.KB(facts, rules).run().model["walker"] == {("b",)}
+
+
+def test_unbound_query_variable_is_reported(tmp_path):
+    p = variant(tmp_path, "?- eligible(M).\nexpect: M = asha", "?- gt(M, 3).\nexpect: none")
+    rep = ck.check(p, "example")
+    assert any("never bound" in f for f in rep.failures())
+
+
+def test_duplicate_facts_count_once(tmp_path):
+    text = synthetic_answer("Test Person", "T001")
+    text = text.replace("\n".join(f"a1(o{k})." for k in range(11, 21)), "a1(o1).\n" * 10)
+    p = tmp_path / "answer.md"
+    p.write_text(text, encoding="utf-8")
+    rep = ck.check(p, "full")
+    assert any("KB facts: 10/20" in f for f in rep.failures())
+
+
+def test_leftover_todo_is_flagged(tmp_path):
+    p = tmp_path / "answer.md"
+    p.write_text(synthetic_answer("Test Person", "T001").replace("| o1, o2 | objects |",
+                                                                  "| o1, o2 | objects |\n| TODO | TODO |"),
+                 encoding="utf-8")
+    rep = ck.check(p, "full")
+    assert any("'TODO' still appears" in f for f in rep.failures())

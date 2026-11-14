@@ -207,3 +207,9 @@ def test_notebook_has_outputs_without_errors():
     code_cells = [c for c in nb["cells"] if c["cell_type"] == "code"]
     assert all(c.get("execution_count") for c in code_cells)
     assert not any(o.get("output_type") == "error" for c in code_cells for o in c["outputs"])
+
+
+def test_human_as_black_with_exhausted_script_does_not_crash():
+    script = iter(["b1 b2"])                     # one move, then the script runs out
+    result, transcript = g.play("B", depth=4, input_fn=lambda _: next(script, None), verbose=False)
+    assert result in ("W", "B", "draw") and transcript

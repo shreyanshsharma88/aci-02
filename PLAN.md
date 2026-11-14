@@ -143,14 +143,20 @@ Manual tasks (humans): each member fills in answer.md, runs the checker, builds 
 | Item | State |
 |---|---|
 | Q1 engine + notebook | Done. `Question1_Group.ipynb` executed via nbconvert, no errors; AUTO_DEMO game ends with Black (computer) winning in 10 plies |
-| Q1 tests | 22 pass (`tests/test_game.py`) |
+| Tests | 63 pass after the audit: 23 game/notebook, 28 checker, 4 builder, 8 packaging |
 | Q2 tooling | check_kb.py, build_pdf.py, status.py, make_skeletons.py; GUIDE, EXAMPLE, KB_SYNTAX; 5 skeletons + 5 TODOs |
-| Q2 tooling tests | 21 checker + 4 builder tests pass |
-| Packaging | check_submission.py + make_zip.sh; 7 tests pass. A real `make_zip.sh` run refuses (all 5 PDFs missing), as expected |
+| Packaging | check_submission.py + make_zip.sh. A real `make_zip.sh` run refuses (all 5 PDFs missing), as expected |
 | EXAMPLE.md | `check_kb.py --profile example` → PASS; full profile → FAIL on counts only (by design) |
-| Skeleton | `check_kb.py q2/2025AG05062/answer.md` → FAIL with 19 fill-in items |
+| Skeleton | `check_kb.py q2/2025AG05062/answer.md` → FAIL with 20 fill-in items |
 | Members' Q2 | **pending** for all 5 (manual) |
 | Group number | unknown: placeholder `<GROUP NO>` in README; pass `GROUP=...` to make_zip.sh |
 | Git | pushed to origin/main (see the final message) |
 
 Deviations from the brief: `pypdf` was added to requirements, because check_submission must read each cover and reportlab cannot read PDFs. `--profile example` exists so the 4-rule example can pass the checker.
+
+### Second audit (same day)
+Fixed: comparison/`not` order sensitivity in the forward chainer; unbound query variables; duplicate facts and rules
+inflating counts; leftover TODOs reaching the PDF; anonymous `_` in `not`; UTF-8 on Windows; PDF section matching;
+demo-script exhaustion when the human plays Black; group number in the notebook header. Added full-profile end-to-end
+tests. Open manual item: the GitHub repo is **public** → the owner must make it private (README §1 A.1).
+The README was rewritten with all manual steps by role (A owner, B everyone, C each member, D submitter, E checklist).

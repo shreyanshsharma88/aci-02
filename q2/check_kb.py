@@ -432,7 +432,7 @@ def parse_kb(src):
                             for a in b.args if isinstance(a, Var)}
                 for lit in [head] + body:
                     if lit is head or lit.neg or lit.pred in BUILTINS:
-                        free = [a for a in lit.args if isinstance(a, Var) and a not in pos_vars]
+                        free = [a for a in lit.args if isinstance(a, Var) and a != "_" and a not in pos_vars]
                         if free:
                             raise ValueError(f"variable {free[0]} in '{lit}' must also appear in a "
                                              "positive (non-negated, non-comparison) body condition")
@@ -505,13 +505,27 @@ class KB:
         raise ValueError("the rules use 'not' inside a cycle (p depends on not p); "
                          "this cannot be evaluated")
 
+    @staticmethod
+    def _unbound(lit, s):
+        return [a for a in lit.args if isinstance(a, Var) and a != "_" and a not in s]
+
     def solve(self, body, s=None, prem=()):
-        """Yield (substitution, premises) for a conjunction of literals."""
+        """Yield (substitution, premises) for a conjunction of literals.
+        Comparisons and 'not' are evaluated only once their variables are bound,
+        whatever order they are written in."""
         s = s or {}
         if not body:
             yield s, prem
             return
-        lit, rest = body[0], body[1:]
+        idx = next((i for i, l in enumerate(body)
+                    if (l.neg or l.pred in BUILTINS) and not self._unbound(l, s)), None)
+        if idx is None:
+            idx = next((i for i, l in enumerate(body) if not l.neg and l.pred not in BUILTINS), None)
+        if idx is None:
+            lit = body[0]
+            raise ValueError(f"variable {self._unbound(lit, s)[0]} in '{lit}' is never bound by a "
+                             "positive condition")
+        lit, rest = body[idx], body[:idx] + body[idx + 1:]
         if lit.pred in BUILTINS:
             vals = [s.get(a, a) if isinstance(a, Var) else a for a in lit.args]
             if len(vals) != 2:
@@ -526,7 +540,8 @@ class KB:
             return
         if lit.neg:
             g = ground(lit, s)
-            if g.args not in self.model[g.pred]:
+            if not any(len(f) == len(g.args) and unify(g.args, f, {}) is not None
+                       for f in self.model[g.pred]):
                 yield from self.solve(rest, s, prem + (Atom(g.pred, g.args, True),))
             return
         for fargs in list(self.model[lit.pred]):
@@ -612,7 +627,7 @@ def parse_expect(expect, qvars):
 # ============================================================ the check
 def load_members():
     p = HERE / "members.json"
-    return {m["id"]: m for m in json.loads(p.read_text())} if p.exists() else {}
+    return {m["id"]: m for m in json.loads(p.read_text(encoding="utf-8"))} if p.exists() else {}
 
 
 def check(path, profile="full"):
@@ -662,6 +677,12 @@ def check(path, profile="full"):
                             f"('{members[sid]['name']}')")
         if path.parent.name in members and path.parent.name != sid:
             rep.add("FAIL", f"B.1 ID {sid} does not match the folder {path.parent.name}")
+
+    todo_lines = [n for n, l in enumerate(raw.splitlines(), 1)
+                  if "TODO" in strip_comments(l) and "<!--" not in l]
+    if todo_lines and "TODO" in text:
+        shown = ", ".join(map(str, todo_lines[:15])) + (" ..." if len(todo_lines) > 15 else "")
+        rep.add("FAIL", f"'TODO' still appears on line(s) {shown}; replace or delete every TODO")
 
     b3 = secs.get("B.3", "")
     if "B.3" not in secs:
@@ -763,14 +784,15 @@ def check(path, profile="full"):
     for e in errors:
         rep.add("FAIL", e)
     inf_rules = [r for r in rules if r.head.pred != "false"]
-    rep.add("PASS" if len(facts) >= prof["facts"] else "FAIL",
-            f"KB facts: {len(facts)}/{prof['facts']}")
-    rep.add("PASS" if len(inf_rules) >= prof["inference_rules"] else "FAIL",
-            f"KB inference rules: {len(inf_rules)}/{prof['inference_rules']}")
+    n_facts = len({a for a, _ in facts})                    # duplicates count once
+    rep.add("PASS" if n_facts >= prof["facts"] else "FAIL",
+            f"KB facts: {n_facts}/{prof['facts']}")
+    n_rules = len({r.text.replace(" ", "") for r in inf_rules})
+    rep.add("PASS" if n_rules >= prof["inference_rules"] else "FAIL",
+            f"KB inference rules: {n_rules}/{prof['inference_rules']}")
     dup = len(facts) - len({a for a, _ in facts})
     if dup:
-        rep.add("WARN", f"{dup} duplicate fact(s) in the KB (duplicates are not counted twice "
-                        "by a marker)")
+        rep.add("WARN", f"{dup} duplicate fact(s) in the KB (each counted once)")
 
     kb_preds = {a.pred: len(a.args) for a, _ in facts}
     for r in rules:
@@ -905,6 +927,11 @@ def main(argv=None):
     ap.add_argument("--profile", choices=PROFILES, default="full",
                     help="'full' = assignment minimums (default); 'example' = only for EXAMPLE.md")
     args = ap.parse_args(argv)
+    for stream in (sys.stdout, sys.stderr):                 # Windows consoles: avoid crashes on ∀ → etc.
+        try:
+            stream.reconfigure(errors="replace")
+        except AttributeError:
+            pass
     rep = check(args.answer, args.profile)
     print(f"Checking {args.answer} (profile: {args.profile})\n")
     print(rep.render())

@@ -3,6 +3,7 @@
 Usage:  python q1/build_notebook.py          # writes ../Question1_Group.ipynb (no outputs)
 Then:   jupyter nbconvert --to notebook --execute --inplace Question1_Group.ipynb
 """
+import os
 from pathlib import Path
 
 import nbformat as nbf
@@ -22,6 +23,8 @@ cells = []
 # ---------------------------------------------------------------- 1
 cells += [md("""# AIMLZG557 – Artificial and Computational Intelligence
 ## Assignment 2 – Question 1 (Group): Mini-chess with Minimax
+
+**Group:** {GROUP}
 
 | Name | BITS ID |
 |---|---|
@@ -213,8 +216,9 @@ DEMO_SCRIPT = ["b3 a1", "a1 b3", "a3 a2", "b3 a1", "a1 c2"]   # the scripted "hu
 if AUTO_DEMO:
     _moves = iter(DEMO_SCRIPT)
     def scripted_input(prompt):
-        mv = next(_moves)
-        print(prompt + mv)
+        mv = next(_moves, None)              # None -> play() falls back to a legal move
+        if mv is not None:
+            print(prompt + mv)
         return mv
     input_fn = scripted_input
 else:
@@ -318,6 +322,14 @@ cells += [md("""## 10. Conclusion
 * The computer plays with **Minimax** (depth configurable, default 8). Alpha-beta pruning returns identical moves with far fewer nodes.
 * A human plays through `input()` with full validation. `AUTO_DEMO` replays a scripted game so the notebook runs end to end.
 * With these rules the side that moves first (White) has a **forced win in 3 plies**. The engine finds it, and punishes human mistakes, as the demo games show.""")]
+
+GROUP = os.environ.get("GROUP", "").strip()
+if GROUP:
+    cells[0]["source"] = cells[0]["source"].replace("{GROUP}", GROUP)
+else:
+    cells[0]["source"] = cells[0]["source"].replace("**Group:** {GROUP}\n\n", "")
+    print("Note: GROUP not set, so the notebook header has no group number. "
+          "Use: GROUP=<GroupNo> python q1/build_notebook.py")
 
 nb = nbf.v4.new_notebook()
 nb["cells"] = cells

@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-TEMPLATE = (HERE / "templates" / "answer_template.md").read_text()
+TEMPLATE = (HERE / "templates" / "answer_template.md").read_text(encoding="utf-8")
 
 TODO = """# Q2 TODO for {NAME} ({ID})
 
@@ -56,13 +56,15 @@ python q2/check_kb.py q2/{ID}/answer.md
 python q2/build_pdf.py q2/{ID}/answer.md
 ```
 
-- [ ] **9. Hand over.** Give `q2/{ID}/{ID}.pdf` (or your committed `answer.md`) to the person submitting, and
-      confirm your name and ID on the cover. When the zip is ready, open it and check your PDF is inside.
+- [ ] **9. Hand over.** Give `q2/{ID}/{ID}.pdf` to the person submitting (or commit `answer.md` and the PDF, but
+      **only once the GitHub repo is private**), and confirm your name and ID on the cover.
+- [ ] **10. Verify the zip.** When the submitter shares the final zip, open it and check that `{ID}.pdf` is inside,
+      is your latest version, and shows your name and ID. Full instructions: README.md §1.
 """
 
 
 def main():
-    members = json.loads((HERE / "members.json").read_text())
+    members = json.loads((HERE / "members.json").read_text(encoding="utf-8"))
     for m in members:
         d = HERE / m["id"]
         d.mkdir(exist_ok=True)
@@ -70,9 +72,11 @@ def main():
         if ans.exists():
             print(f"keep    {ans.relative_to(HERE.parent)} (already exists)")
         else:
-            ans.write_text(TEMPLATE.replace("{NAME}", m["name"]).replace("{ID}", m["id"]))
+            ans.write_text(TEMPLATE.replace("{NAME}", m["name"]).replace("{ID}", m["id"]),
+                           encoding="utf-8")
             print(f"created {ans.relative_to(HERE.parent)}")
-        (d / "TODO.md").write_text(TODO.replace("{NAME}", m["name"]).replace("{ID}", m["id"]))
+        (d / "TODO.md").write_text(TODO.replace("{NAME}", m["name"]).replace("{ID}", m["id"]),
+                                   encoding="utf-8")
         print(f"wrote   {(d / 'TODO.md').relative_to(HERE.parent)}")
 
 

@@ -122,3 +122,15 @@ def test_make_zip_builds_and_checks(tmp_path, fixture_pdfs):
     assert sorted(zipfile.ZipFile(z).namelist()) == sorted(
         ["Question1_Group.ipynb"] + [f"{m['id']}.pdf" for m in MEMBERS])
     assert "RESULT: PASS" in r.stdout
+
+
+def test_full_profile_pdfs_pass_submission_check(tmp_path):
+    from conftest import synthetic_answer
+    files = {"Question1_Group.ipynb": ROOT / "Question1_Group.ipynb"}
+    for m in MEMBERS:
+        d = tmp_path / m["id"]
+        d.mkdir()
+        (d / "answer.md").write_text(synthetic_answer(m["name"], m["id"]), encoding="utf-8")
+        files[f"{m['id']}.pdf"] = build_pdf.build(d / "answer.md")   # full profile, default name
+        assert files[f"{m['id']}.pdf"].name == f"{m['id']}.pdf"
+    assert fails(cs.check_zip(make_zip(tmp_path / "full.zip", files))) == []

@@ -11,7 +11,7 @@ import check_kb  # noqa: E402
 
 print(f"| {'Member':<30} | {'BITS ID':<11} | Q2 status |")
 print(f"|{'-' * 32}|{'-' * 13}|-----------|")
-for m in json.loads((HERE / "members.json").read_text()):
+for m in json.loads((HERE / "members.json").read_text(encoding="utf-8")):
     d = HERE / m["id"]
     rep = check_kb.check(d / "answer.md")
     if (d / f"{m['id']}.pdf").exists() and rep.passed:

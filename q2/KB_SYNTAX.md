@@ -37,9 +37,11 @@ needs_manager(E, M) :- requested_days(E, D), gt(D, 3), manager_of(M, E).
 * The comma means **AND**. For **OR**, write two rules with the same head.
 * The head is one positive atom (Horn clause). Every variable in the head must appear in a positive body condition.
 * `not p(...)` is **negation as failure** (closed-world assumption): it is true when `p(...)` cannot be derived.
-  Its variables must already be bound by earlier positive conditions. Do not make `p` depend on `not p`.
-* Comparison built-ins (both arguments must be bound): `lt(X,Y)` <, `le(X,Y)` ≤, `gt(X,Y)` >, `ge(X,Y)` ≥,
-  `eq(X,Y)` =, `neq(X,Y)` ≠.
+  Each of its variables must also appear in a positive condition of the same rule (in any position). `_` means
+  "anything": `not owns(X, _)` = X owns nothing. Do not make `p` depend on `not p`.
+* Comparison built-ins: `lt(X,Y)` <, `le(X,Y)` ≤, `gt(X,Y)` >, `ge(X,Y)` ≥, `eq(X,Y)` =, `neq(X,Y)` ≠. Their variables
+  must also appear in a positive condition. The checker evaluates comparisons and `not` after the variables are
+  bound, so the order you write the conditions in does not matter.
 
 ## Optional consistency constraints
 
@@ -52,8 +54,8 @@ contradiction if both `p(...)` and `neg_p(...)` hold. Constraints do not count t
 
 ## Counting
 
-* **Facts** = ground clauses in the kb block (at least 20).
-* **Inference rules** = clauses with `:-` whose head is not `false` (at least 10).
+* **Facts** = distinct ground clauses in the kb block (at least 20; a repeated fact counts once).
+* **Inference rules** = distinct clauses with `:-` whose head is not `false` (at least 10).
 
 ## Queries (one block per query in B.3.7)
 
@@ -82,12 +84,12 @@ underscores: `leave_balance/2` matches `LeaveBalance(e, d)`. Comparison built-in
 
 | Check | Level |
 |---|---|
-| B.1–B.5 present and filled (no `TODO` left) | FAIL |
+| B.1–B.5 present and filled; no `TODO` left anywhere | FAIL |
 | ≥10 BR, ≥10 PL, ≥10 FOL, with a PL and a FOL for every BR | FAIL |
 | ≥20 facts, ≥10 inference rules, exactly 5 complete queries | FAIL |
 | proposition in PL not in the propositions table; predicate in FOL/KB not in the predicates table | FAIL |
 | PL formula not well-formed; no quantifier in any FOL rule | FAIL |
 | KB syntax error; body predicate that is never a fact or head | FAIL |
-| query answer does not follow from the KB | FAIL |
+| query answer does not follow from the KB; query variable used only in a comparison/`not` | FAIL |
 | contradiction (`false :-` satisfied, or `p` and `neg_p` both hold) | FAIL |
 | inference rule never fires; fact never read by a rule or query; arity mismatch; word count outside the guide | WARN |

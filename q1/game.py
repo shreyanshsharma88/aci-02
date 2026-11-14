@@ -323,6 +323,7 @@ def parse_move(text, state):
 
 def play(human_side="W", depth=6, input_fn=input, algorithm="minimax", verbose=True):
     """Human vs computer. input_fn supplies the human's moves (input() when interactive).
+    If input_fn returns None (a scripted demo has run out), the first legal move is played.
     Returns (result, transcript)."""
     state, ply = START, 0
     history = Counter({state: 1})
@@ -341,6 +342,10 @@ def play(human_side="W", depth=6, input_fn=input, algorithm="minimax", verbose=T
             while True:
                 raw = input_fn(f"Your move ({'White' if human_side == 'W' else 'Black'}), "
                                "e.g. 'b3 c1' | 'moves' | 'quit': ")
+                if raw is None:                      # scripted demo ran out of moves
+                    move = moves[0]
+                    say("  (demo script exhausted: playing the first legal move)")
+                    break
                 if raw.strip().lower() == "quit":
                     say("Game abandoned.")
                     return "abandoned", transcript

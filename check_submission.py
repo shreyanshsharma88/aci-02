@@ -19,9 +19,9 @@ from pathlib import Path
 import pypdf
 
 ROOT = Path(__file__).resolve().parent
-MEMBERS = json.loads((ROOT / "q2" / "members.json").read_text())
+MEMBERS = json.loads((ROOT / "q2" / "members.json").read_text(encoding="utf-8"))
 NOTEBOOK = "Question1_Group.ipynb"
-SECTIONS = ["B.2", "B.3", "B.4", "B.5"]
+SECTIONS = ["B.2 Anchor", "B.3 Apply", "B.4 Analyse", "B.5 Reflect"]
 
 
 def squash(s):
@@ -41,7 +41,10 @@ def check_pdf(data, member):
     if member["id"].lower() not in cover:
         problems.append(f"cover does not show the BITS ID {member['id']}")
     text = "\n".join(pages)
-    pos = {s: text.find(s + " ") for s in SECTIONS}
+    pos = {}
+    for s in SECTIONS:                                   # full heading text, e.g. "B.4 Analyse"
+        m = list(re.finditer(re.escape(s) + r"\b", text))
+        pos[s] = m[0].start() if m else -1
     for i, s in enumerate(SECTIONS):
         if pos[s] < 0:
             problems.append(f"section {s} heading not found")
