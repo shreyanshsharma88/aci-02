@@ -1,9 +1,9 @@
 # Question 2 – Situated Learning: Knowledge Representation
 
-> **ILLUSTRATION ONLY. DO NOT COPY.**
-> This is a toy example about a public library's book-loan policy. It shows the **format and depth** expected in
+> Illustration only. Do not copy.
+> This is a toy example about a public library's book-loan policy. It shows the format and depth expected in
 > each part of your answer.md. It is deliberately short: 4 rules and 2 queries, where the assignment needs at
-> least 10 rules and exactly 5 queries. It is not anyone's workplace. Your answer must use **your own**
+> least 10 rules and exactly 5 queries. It is not anyone's workplace. Your answer must use your own
 > workplace process, rules, facts and queries.
 > Check it with: `python q2/check_kb.py q2/EXAMPLE.md --profile example`
 
@@ -146,9 +146,9 @@ expect: yes
 - **Answer:** Yes.
 - **Reasoning chain:** By forward chaining with modus ponens:
   1. overdue(asha, _) is not a fact, so inference rule 1 does not derive unpaid_fine(asha). Under the closed-world assumption, `not unpaid_fine(asha)` holds.
-  2. member(asha), active(asha), category(asha, student), holds(asha, 1), limit(student, 3) and 1 < 3 hold, so inference rule 2 gives **eligible(asha)**.
-  3. book(b101) holds, and neither on_loan(b101) nor reference_only(b101) is a fact, so inference rule 3 gives **available(b101)**.
-  4. eligible(asha), requests(asha, b101) and available(b101) hold, so inference rule 4 gives **approved(asha, b101)**.
+  2. member(asha), active(asha), category(asha, student), holds(asha, 1), limit(student, 3) and 1 < 3 hold, so inference rule 2 gives eligible(asha).
+  3. book(b101) holds, and neither on_loan(b101) nor reference_only(b101) is a fact, so inference rule 3 gives available(b101).
+  4. eligible(asha), requests(asha, b101) and available(b101) hold, so inference rule 4 gives approved(asha, b101).
 
 #### Query 2
 

@@ -2,14 +2,14 @@
 
 `q2/check_kb.py` reads two kinds of fenced block in your `answer.md`: one ```` ```kb ```` block (B.3.6) and one
 ```` ```query ```` block per query (B.3.7). The syntax is a small subset of Prolog/Datalog: facts and Horn-clause
-rules with variables, evaluated by **forward chaining**.
+rules with variables, evaluated by forward chaining.
 
 ## Terms
 
 | Kind | Written as | Examples |
 |---|---|---|
 | Constant | starts lowercase, or a number, or quoted | `alice`, `hr_dept`, `12`, `4.5`, `'Ward 3B'` |
-| Variable | starts **Uppercase** or `_` | `X`, `Emp`, `Days`, `_` (anonymous) |
+| Variable | starts Uppercase or `_` | `X`, `Emp`, `Days`, `_` (anonymous) |
 
 ## Facts: ground atoms ending in `.`
 
@@ -34,9 +34,9 @@ auto_approve(E) :- can_apply_leave(E), sufficient_balance(E), requested_days(E, 
 needs_manager(E, M) :- requested_days(E, D), gt(D, 3), manager_of(M, E).
 ```
 
-* The comma means **AND**. For **OR**, write two rules with the same head.
+* The comma means AND. For OR, write two rules with the same head.
 * The head is one positive atom (Horn clause). Every variable in the head must appear in a positive body condition.
-* `not p(...)` is **negation as failure** (closed-world assumption): it is true when `p(...)` cannot be derived.
+* `not p(...)` is negation as failure (closed-world assumption): it is true when `p(...)` cannot be derived.
   Each of its variables must also appear in a positive condition of the same rule (in any position). `_` means
   "anything": `not owns(X, _)` = X owns nothing. Do not make `p` depend on `not p`.
 * Comparison built-ins: `lt(X,Y)` <, `le(X,Y)` ≤, `gt(X,Y)` >, `ge(X,Y)` ≥, `eq(X,Y)` =, `neq(X,Y)` ≠. Their variables
@@ -49,13 +49,13 @@ needs_manager(E, M) :- requested_days(E, D), gt(D, 3), manager_of(M, E).
 false :- approved(E), rejected(E).
 ```
 
-If the body of a `false` rule can be satisfied, the checker reports a **contradiction**. The checker also flags a
+If the body of a `false` rule can be satisfied, the checker reports a contradiction. The checker also flags a
 contradiction if both `p(...)` and `neg_p(...)` hold. Constraints do not count towards the 10 inference rules.
 
 ## Counting
 
-* **Facts** = distinct ground clauses in the kb block (at least 20; a repeated fact counts once).
-* **Inference rules** = distinct clauses with `:-` whose head is not `false` (at least 10).
+* Facts = distinct ground clauses in the kb block (at least 20; a repeated fact counts once).
+* Inference rules = distinct clauses with `:-` whose head is not `false` (at least 10).
 
 ## Queries (one block per query in B.3.7)
 
@@ -70,10 +70,10 @@ expect: E = dave, M = bob; E = erin, M = bob
 ```
 
 * `?-` is followed by one or more conditions, separated by commas (the same syntax as a rule body).
-* `expect:` is `yes` or `no` for a query without variables. With variables, list **all** expected answers as
+* `expect:` is `yes` or `no` for a query without variables. With variables, list all expected answers as
   `Var = value`, separated by `;`, or write `none`.
 * The checker runs the KB and reports PASS only if the KB gives exactly your expected answer. It also prints the
-  derivation (which rule, which facts), which you can use for your **Reasoning chain**.
+  derivation (which rule, which facts), which you can use for your Reasoning chain.
 
 ## Linking the KB to your predicate table
 

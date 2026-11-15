@@ -1,5 +1,5 @@
 # AIMLZG557 – Artificial and Computational Intelligence
-## Assignment 2 – Situated Learning (10 marks) · Group `<GROUP NO>`
+## Assignment 2 – Situated Learning (10 marks) · Group `70`
 
 | # | Name | BITS ID | Email |
 |---|---|---|---|
@@ -9,8 +9,8 @@
 | 4 | ABHISHEK GHOSH | 2025AG05076 | 2025ag05076@wilp.bits-pilani.ac.in |
 | 5 | SATHIYALATHASHRI N | 2025AG05239 | 2025ag05239@wilp.bits-pilani.ac.in |
 
-> **Due today.** Q1 is finished. **Each member's Q2 PDF is still missing.** Without all 5 PDFs the zip cannot be
-> built, and a member whose PDF is missing gets **0 for Q2**. Start with **§1 Manual steps**.
+> Due today. Q1 is finished. Each member's Q2 PDF is still missing. Without all 5 PDFs the zip cannot be
+> built, and a member whose PDF is missing gets 0 for Q2. Start with section 1.
 
 **Contents**
 1. [Manual steps: everything a human still has to do](#1-manual-steps-everything-a-human-still-has-to-do)
@@ -26,19 +26,19 @@
 
 ## 1. Manual steps: everything a human still has to do
 
-The steps are grouped by who does them. Do them **in order**: A → B → C (all members in parallel) → D.
+The steps are grouped by who does them. Do them in order: A, B, C (all members in parallel), then D.
 
 ### A. Repository owner (SHREYANSH SHARMA), about 10 minutes, do first
 
-1. **Make the GitHub repository private.** It is currently **public**, so anyone, including other groups, can copy
+1. Make the GitHub repository private. It is currently public, so anyone, including other groups, can copy
    the Q1 notebook, and every member's workplace content would be published once committed.
-   GitHub → `shreyanshsharma88/aci-02` → **Settings** → **General** → scroll to **Danger Zone** → **Change
-   repository visibility** → **Make private**.
-2. **Give the other four members access** (only if they will use git): **Settings** → **Collaborators** →
-   **Add people** → add each member's GitHub username. Members who don't use git can work from a downloaded copy
+   GitHub → `shreyanshsharma88/aci-02` → Settings → General → scroll to Danger Zone → Change
+   repository visibility → Make private.
+2. Give the other four members access (only if they will use git): Settings → Collaborators →
+   Add people → add each member's GitHub username. Members who don't use git can work from a downloaded copy
    (see C.1) and send their PDF to the submitter instead.
-3. **Pick the submitter**: one person who will build and upload the zip (section D). Tell the group who it is.
-4. **Find the group number** (from the course portal or group list) and put it in the notebook header and this
+3. Pick the submitter, the one person who will build and upload the zip (section D). Tell the group who it is.
+4. Find the group number (from the course portal or group list) and put it in the notebook header and this
    README:
    ```bash
    source .venv/bin/activate
@@ -58,10 +58,10 @@ The steps are grouped by who does them. Do them **in order**: A → B → C (all
 Q1 is a group submission, so every member should know what is in it.
 
 1. Open `Question1_Group.ipynb` (on GitHub, or locally with `jupyter notebook Question1_Group.ipynb`).
-2. Read **Section 2** (rule interpretations) and **Section 5** (evaluation function and worked example). These are
+2. Read Section 2 (rule interpretations) and Section 5 (evaluation function and worked example). These are
    the design decisions the evaluator will look at. They are also summarised in [§6](#6-q1-rule-interpretations-and-assumptions).
-3. Optional: play against the computer. In Section 7 set `AUTO_DEMO = False`, then **Run All**. Type moves like
-   `b3 c1`; `moves` lists your legal moves and `quit` stops the game. **Set it back to `AUTO_DEMO = True`** before
+3. Optional: play against the computer. In Section 7 set `AUTO_DEMO = False`, then Run All. Type moves like
+   `b3 c1`; `moves` lists your legal moves and `quit` stops the game. Set it back to `AUTO_DEMO = True` before
    the final notebook is saved: the submitted file must run without typing.
 4. If the group disagrees with an interpretation (for example, the knight's sideways L), change the flag in
    `q1/game.py` (`ALLOW_SIDEWAYS_L`, `NO_MOVE_RULE`, `MAX_PLIES`), then rebuild, execute and test as in A.4. Some
@@ -69,15 +69,15 @@ Q1 is a group submission, so every member should know what is in it.
 
 ### C. Every member: write your own Q2, about 1.5–2 hours each
 
-Q2 is **individual**: your own workplace, your own words. Nothing has been written for you; only your name and
+Q2 is individual: your own workplace, your own words. Nothing has been written for you; only your name and
 BITS ID are pre-filled. Your personal checklist is in `q2/<your BITS ID>/TODO.md`.
 
-**C.0 Get the files (once)**
+C.0 Get the files (once)
 * With git: `git clone git@github.com:shreyanshsharma88/aci-02.git` (or the HTTPS URL), then `cd aci-02`.
-* Without git: GitHub → **Code** → **Download ZIP**, then unzip it. (If the repo is private, the owner must add you
+* Without git: GitHub → Code → Download ZIP, then unzip it. (If the repo is private, the owner must add you
   first, or send you the folder.)
 
-**C.0b Set up Python (once).** You need Python 3.9 or newer.
+C.0b Set up Python (once). You need Python 3.9 or newer.
 ```bash
 # macOS / Linux
 python3 -m venv .venv
@@ -92,15 +92,15 @@ pip install -r requirements.txt
 ```
 Run every later command from the repository folder with the venv active (your prompt shows `(.venv)`).
 
-**C.1–C.9 Your steps**
+C.1 to C.9, your steps
 1. Open `q2/<your BITS ID>/answer.md` in any text editor (VS Code recommended). Read `q2/GUIDE.md` and
-   `q2/EXAMPLE.md` first (about 15 min). The example is a toy library policy and is **illustration only: do not
-   copy it**. Skim `q2/KB_SYNTAX.md`.
-2. **B.1:** fill in your name, ID, industry/domain, organisation type, and the instructor prompt if one was given
+   `q2/EXAMPLE.md` first (about 15 min). The example is a toy library policy and is illustration only, so do not
+   copy it. Skim `q2/KB_SYNTAX.md`.
+2. B.1: fill in your name, ID, industry/domain, organisation type, and the instructor prompt if one was given
    (otherwise write `None given`). Do not change your ID.
-3. **B.2 Anchor:** pick a real rule-governed process from your own workplace, or the industry equivalent if yours
+3. B.2 Anchor: pick a real rule-governed process from your own workplace, or the industry equivalent if yours
    has none. Describe the context, who is involved, and why decisions follow rules (about 150–250 words).
-4. **B.3 Apply:**
+4. B.3 Apply:
    - write at least 10 business rules in plain English (`BR1` … `BR10`)
    - define your propositions in the table, and write each rule in propositional logic (`PL1` … `PL10`)
    - define your predicates, variables and constants, and rewrite each rule in predicate logic with
@@ -111,14 +111,14 @@ Run every later command from the repository folder with the venv active (your pr
      and one query with a variable.
 5. Run the checker. Fix everything it marks `[FAIL]` (missing counts, undefined predicates, queries that don't
    follow) and re-run until it ends with `RESULT: PASS`. `[WARN]` lines are advice, not blockers.
-6. **B.4 Analyse:** explain how predicate logic is more expressive than propositional logic in your scenario, how
+6. B.4 Analyse: explain how predicate logic is more expressive than propositional logic in your scenario, how
    effective your KB is, and what knowledge is missing or what limits it (about 200–300 words).
-7. **B.5 Reflect:** describe the deployment constraints (incomplete knowledge, changing rules, privacy, scale,
+7. B.5 Reflect: describe the deployment constraints (incomplete knowledge, changing rules, privacy, scale,
    technology), then recommend and justify the single most important improvement (about 200–300 words).
-8. Re-run the checker (it must still PASS), then build your PDF. This produces `q2/<ID>/<ID>.pdf`. **Open it and
-   proofread it**: cover (name, ID, domain), all sections, the logic symbols, the tables.
-9. **Hand over** before the agreed cut-off time. Either send `q2/<ID>/<ID>.pdf` to the submitter (WhatsApp, Drive,
-   email between members is fine; only the *final submission* must go through the portal), or, if the repo is
+8. Re-run the checker (it must still PASS), then build your PDF. This produces `q2/<ID>/<ID>.pdf`. Open it and
+   proofread it: cover (name, ID, domain), all sections, the logic symbols, the tables.
+9. Hand over before the agreed cut-off time. Either send `q2/<ID>/<ID>.pdf` to the submitter (WhatsApp, Drive,
+   email between members is fine; only the final submission must go through the portal), or, if the repo is
    private, commit and push your work:
    ```bash
    git add q2/<ID>/answer.md q2/<ID>/<ID>.pdf
@@ -129,31 +129,31 @@ Run every later command from the repository folder with the venv active (your pr
 
 **Ready-to-copy commands, one block per member** (venv active, from the repository folder):
 
-**LAKSHYA KANCHAN – 2025AG05062**
+LAKSHYA KANCHAN (2025AG05062)
 ```bash
 python q2/check_kb.py q2/2025AG05062/answer.md
 python q2/build_pdf.py q2/2025AG05062/answer.md
 ```
 
-**SHREYANSH SHARMA – 2025AG05772**
+SHREYANSH SHARMA (2025AG05772)
 ```bash
 python q2/check_kb.py q2/2025AG05772/answer.md
 python q2/build_pdf.py q2/2025AG05772/answer.md
 ```
 
-**VINAY PRATAP SINGH BHADAURIA – 2025AG05689**
+VINAY PRATAP SINGH BHADAURIA (2025AG05689)
 ```bash
 python q2/check_kb.py q2/2025AG05689/answer.md
 python q2/build_pdf.py q2/2025AG05689/answer.md
 ```
 
-**ABHISHEK GHOSH – 2025AG05076**
+ABHISHEK GHOSH (2025AG05076)
 ```bash
 python q2/check_kb.py q2/2025AG05076/answer.md
 python q2/build_pdf.py q2/2025AG05076/answer.md
 ```
 
-**SATHIYALATHASHRI N – 2025AG05239**
+SATHIYALATHASHRI N (2025AG05239)
 ```bash
 python q2/check_kb.py q2/2025AG05239/answer.md
 python q2/build_pdf.py q2/2025AG05239/answer.md
@@ -161,25 +161,25 @@ python q2/build_pdf.py q2/2025AG05239/answer.md
 
 ### D. The submitter: build, verify, upload, about 15 minutes, once all 5 are in
 
-1. **Collect all 5 PDFs** into their folders, with the exact names:
+1. Collect all 5 PDFs into their folders, with the exact names:
    `q2/2025AG05062/2025AG05062.pdf`, `q2/2025AG05772/2025AG05772.pdf`, `q2/2025AG05689/2025AG05689.pdf`,
    `q2/2025AG05076/2025AG05076.pdf`, `q2/2025AG05239/2025AG05239.pdf`.
    (If a member pushed their answer.md, `git pull` and run `python q2/build_pdf.py q2/<ID>/answer.md` yourself.)
-2. **See who is still missing:** `python q2/status.py`. Chase anyone not at "PDF built". A PDF a member sent you
+2. See who is still missing: `python q2/status.py`. Chase anyone not at "PDF built". A PDF a member sent you
    directly shows as "pending" here because their answer.md isn't in your copy; that is fine as long as the PDF is
    in place for step 3.
-3. **Build and verify the zip** (Git Bash on Windows):
+3. Build and verify the zip (Git Bash on Windows):
    ```bash
    GROUP=<GroupNo> bash make_zip.sh
    ```
    If it says `REFUSING`, it lists exactly whose PDF is missing. Otherwise it builds
-   `dist/<GroupNo>_ACI_Assignment2.zip` and runs `check_submission.py` on it. That must end with **`RESULT: PASS`**:
+   `dist/<GroupNo>_ACI_Assignment2.zip` and runs `check_submission.py` on it. That must end with `RESULT: PASS`:
    exactly 6 files at the top level, each PDF's cover shows the right name and ID, B.2–B.5 have content, and the
    notebook has outputs. Re-check at any time with `python check_submission.py`.
-4. **Share the zip with all four other members.** Each one opens it and confirms that their PDF is inside, is the
-   right version, and shows their name and ID. The docx makes **all members jointly responsible** for this check.
-5. **Upload `dist/<GroupNo>_ACI_Assignment2.zip` through the assignment portal**, before the deadline.
-   **Email submissions are not accepted.** Upload **one zip for the whole group**; nobody else submits separately.
+4. Share the zip with all four other members. Each one opens it and confirms that their PDF is inside, is the
+   right version, and shows their name and ID. The docx makes all members jointly responsible for this check.
+5. Upload `dist/<GroupNo>_ACI_Assignment2.zip` through the assignment portal, before the deadline.
+   Email submissions are not accepted. Upload one zip for the whole group; nobody else submits separately.
 6. After uploading, download the file back from the portal (if it allows), or take a screenshot of the
    confirmation, and post it in the group chat.
 
@@ -203,23 +203,23 @@ python q2/build_pdf.py q2/2025AG05239/answer.md
 
 **Question 1: Gaming problem (group, 5 marks).** Simulate a small chess variant on the 3×3 board in the assignment
 image, with Soldiers (pawns) and Horses (knights). A side wins when the opponent has lost every piece. Design and
-justify a **static evaluation function (no ML)**, explain it on a sample game state, and implement **Minimax** in
-Python. One player is a **human giving live input**; the other is the program.
+justify a static evaluation function (no ML), explain it on a sample game state, and implement Minimax in
+Python. One player is a human giving live input; the other is the program.
 → One notebook for the group: `Question1_Group.ipynb`.
 
-**Question 2: Situated learning (individual, 5 marks).** Each member picks a rule-governed process from **their own
-workplace** and represents it with propositional logic, predicate logic and a knowledge base: ≥10 rules in both
+**Question 2: Situated learning (individual, 5 marks).** Each member picks a rule-governed process from their own
+workplace and represents it with propositional logic, predicate logic and a knowledge base: ≥10 rules in both
 logics, ≥20 facts, ≥10 inference rules, 5 queries answered by reasoning. Then they analyse and reflect.
-Rubric: **Anchor (B.2) 1 · Apply (B.3) 2 · Analyse (B.4) 1 · Reflect (B.5) 1**.
+Rubric: Anchor (B.2) 1 · Apply (B.3) 2 · Analyse (B.4) 1 · Reflect (B.5) 1.
 → One PDF per member, named `<BITS_ID>.pdf`.
 
 **Submission rules (from the assignment document)**
-* **One ZIP per group**, with exactly **6 files at the top level**: `Question1_Group.ipynb`, `2025AG05062.pdf`,
+* One ZIP per group, with exactly 6 files at the top level: `Question1_Group.ipynb`, `2025AG05062.pdf`,
   `2025AG05772.pdf`, `2025AG05689.pdf`, `2025AG05076.pdf`, `2025AG05239.pdf`.
-* Do not submit an incomplete ZIP. **A member whose PDF is missing from the ZIP gets no Q2 marks**, even if Q1 was
+* Do not submit an incomplete ZIP. A member whose PDF is missing from the ZIP gets no Q2 marks, even if Q1 was
   submitted.
-* **Portal only**; email submissions are not accepted. Late submissions follow course policy.
-* **All members** are jointly responsible for verifying the ZIP before submission.
+* Portal only; email submissions are not accepted. Late submissions follow course policy.
+* All members are jointly responsible for verifying the ZIP before submission.
 
 ---
 
@@ -227,21 +227,21 @@ Rubric: **Anchor (B.2) 1 · Apply (B.3) 2 · Analyse (B.4) 1 · Reflect (B.5) 1*
 
 ### Q1: done, executed, tested
 
-* **Code:** `q1/game.py` is the single source. `q1/build_notebook.py` inlines it into `Question1_Group.ipynb`
+* Code: `q1/game.py` is the single source. `q1/build_notebook.py` inlines it into `Question1_Group.ipynb`
   (self-contained; no imports from the repo), and nbconvert executed it, so all outputs are saved in the file.
-* **Board:** 3×3. White S a3 and H b3 (moves down); Black S b1 and H c1 (moves up). **Human = White, moves first;
-  computer = Black** (`HUMAN_SIDE` to change).
-* **Evaluation function** (White's view, White minus Black, hand-set weights, no ML):
+* Board: 3×3. White S a3 and H b3 (moves down); Black S b1 and H c1 (moves up). Human = White, moves first;
+  computer = Black (`HUMAN_SIDE` to change).
+* Evaluation function (White's view, White minus Black, hand-set weights, no ML):
   `E = material (S=10, H=30) + 1·mobility + 2·pawn advancement + 3·threats − 0.5·value of each attacked-and-undefended piece`.
   Terminal positions score ±(1000 − ply). Notebook worked example (White S a2, H a1; Black S c2, H b3; White to
-  move): material 0, mobility −1, advancement 0, threats +3, safety −10, **total −8**. A 1-ply search then finds
+  move): material 0, mobility −1, advancement 0, threats +3, safety −10, total −8. A 1-ply search then finds
   H a1xb3 (+13), which shows why the evaluation is used inside Minimax and not on its own.
-* **Search:** plain **Minimax** is what the computer uses (default depth 8). **Alpha-beta** returns the same move with
+* Search: plain Minimax is what the computer uses (default depth 8). Alpha-beta returns the same move with
   fewer nodes (depth 8 from the start: 2036 vs 125). White, moving first, has a forced win in 3 plies (H b3xc1).
-* **Human play:** `input()` with validation (`b3 c1`, `b3c1`, `b3-c1`, `moves`, `quit`). `AUTO_DEMO = True` replays
+* Human play: `input()` with validation (`b3 c1`, `b3c1`, `b3-c1`, `moves`, `quit`). `AUTO_DEMO = True` replays
   a scripted human game (the computer wins in 10 plies), so the notebook runs end to end. A second scripted game
   shows the human winning and the pass rule.
-* **Analysis:** depth vs nodes and time (table and plot); full evaluation vs material-only, measured by how often a
+* Analysis: depth vs nodes and time (table and plot); full evaluation vs material-only, measured by how often a
   shallow search picks a game-theoretically best move.
 
 ### Q2: preparation only (no member content written)
@@ -251,10 +251,10 @@ Rubric: **Anchor (B.2) 1 · Apply (B.3) 2 · Analyse (B.4) 1 · Reflect (B.5) 1*
 | `q2/<ID>/answer.md` | Skeleton per member: every B.1–B.5 heading, table and numbered slot (BR/PL/FOL 1–10, Fact 1–20, Inference rule 1–10, Query 1–5), with guidance in comments that never reach the PDF |
 | `q2/<ID>/TODO.md` | That member's checklist with their ID in every command |
 | `q2/GUIDE.md` | Rule → propositional → predicate logic; facts vs rules; queries; forward/backward chaining; modus ponens; common mistakes |
-| `q2/EXAMPLE.md` | **Illustration only** (library book loans): 4 rules in both logics, KB, 2 queries with chains |
+| `q2/EXAMPLE.md` | Illustration only (library book loans): 4 rules in both logics, KB, 2 queries with chains |
 | `q2/KB_SYNTAX.md` | Syntax of the ```` ```kb ```` and ```` ```query ```` blocks (Horn clauses, `not`, comparisons, `false :-` constraints) |
-| `q2/check_kb.py` | **Checker.** Sections filled and no `TODO` left; counts; one PL and one FOL per BR; undefined propositions and predicates; PL well-formed; quantifiers present; KB syntax; **forward chaining** (stratified negation, comparisons) with derivation traces; each query's expected answer verified; rules that never fire, unused facts, contradictions. Prints a PASS/FAIL checklist; exit code 1 on FAIL. |
-| `q2/build_pdf.py` | Renders answer.md into `<ID>.pdf`: cover (course, name, BITS ID, domain, organisation type, instructor prompt), tables, logic symbols (DejaVu font), page footer. **Refuses to build** while the checker fails or the ID isn't one of ours. |
+| `q2/check_kb.py` | Checker. Sections filled and no `TODO` left; counts; one PL and one FOL per BR; undefined propositions and predicates; PL well-formed; quantifiers present; KB syntax; forward chaining (stratified negation, comparisons) with derivation traces; each query's expected answer verified; rules that never fire, unused facts, contradictions. Prints a PASS/FAIL checklist; exit code 1 on FAIL. |
+| `q2/build_pdf.py` | Renders answer.md into `<ID>.pdf`: cover (course, name, BITS ID, domain, organisation type, instructor prompt), tables, logic symbols (DejaVu font), page footer. Refuses to build while the checker fails or the ID isn't one of ours. |
 | `q2/status.py` | Each member's status from the files present |
 | `q2/make_skeletons.py` | Re-creates missing skeletons and TODO files; never overwrites an answer.md |
 
@@ -264,7 +264,7 @@ Rubric: **Anchor (B.2) 1 · Apply (B.3) 2 · Analyse (B.4) 1 · Reflect (B.5) 1*
 * `check_submission.py`: checks for exactly the 6 required names at the top level; each PDF opens and its cover
   shows the matching name and BITS ID; B.2–B.5 have content; the notebook is executed with outputs and no errors.
 
-### Audit (second pass) – issues found and fixed
+### Audit (second pass): issues found and fixed
 | Issue | Fix |
 |---|---|
 | A comparison or `not` written **before** the condition that binds its variable silently failed or derived wrong facts | Checker now evaluates comparisons and `not` once their variables are bound, in any order. Tested. |
@@ -317,16 +317,16 @@ From the files present when this README was written. Run `python q2/status.py` f
 
 | Item | Status |
 |---|---|
-| Q1 notebook | **Done**: executed with outputs, no errors |
-| Tests | **63 pass**: 23 Q1 game/notebook, 28 checker, 4 PDF builder, 8 packaging |
-| Q2 tooling, guide, example, skeletons | **Done** |
-| LAKSHYA KANCHAN (2025AG05062) Q2 | **pending**: skeleton only |
-| SHREYANSH SHARMA (2025AG05772) Q2 | **pending**: skeleton only |
-| VINAY PRATAP SINGH BHADAURIA (2025AG05689) Q2 | **pending**: skeleton only |
-| ABHISHEK GHOSH (2025AG05076) Q2 | **pending**: skeleton only |
-| SATHIYALATHASHRI N (2025AG05239) Q2 | **pending**: skeleton only |
-| Repository private | **to do** (A.1) |
-| Group number | **to do** (A.4) |
+| Q1 notebook | Done: executed with outputs, no errors |
+| Tests | 63 pass: 23 Q1 game/notebook, 28 checker, 4 PDF builder, 8 packaging |
+| Q2 tooling, guide, example, skeletons | Done |
+| LAKSHYA KANCHAN (2025AG05062) Q2 | pending: skeleton only |
+| SHREYANSH SHARMA (2025AG05772) Q2 | pending: skeleton only |
+| VINAY PRATAP SINGH BHADAURIA (2025AG05689) Q2 | PDF built from a draft; needs the author's review |
+| ABHISHEK GHOSH (2025AG05076) Q2 | pending: skeleton only |
+| SATHIYALATHASHRI N (2025AG05239) Q2 | pending: skeleton only |
+| Repository private | to do (A.1) |
+| Group number | Done (70) |
 | Final zip | not built: `make_zip.sh` refuses until all 5 PDFs exist |
 
 ---
