@@ -27,7 +27,6 @@ import check_kb  # noqa: E402
 
 COURSE = "AIMLZG557 – Artificial and Computational Intelligence"
 ASSIGNMENT = "Assignment 2 – Question 2 (Individual): Situated Learning"
-COURSE_INFO = "Instructor In-charge: Dr. V Indumathi  ·  Semester: S1-26  ·  Component: EC-1"
 
 
 # ------------------------------------------------------------------ fonts & styles
@@ -283,7 +282,7 @@ def cover(st):
     return [Paragraph(inline(COURSE), st["eyebrow"]),
         Paragraph("Assignment 2: Situated Learning", st["h1"]),
         Paragraph("Question 2 · Knowledge Representation · Individual Assignment", st["subtitle"]),
-        Paragraph(inline(COURSE_INFO), st["small"]), Spacer(1, 10)]
+        Spacer(1, 10)]
 
 
 # ------------------------------------------------------------------ build
