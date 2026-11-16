@@ -28,14 +28,13 @@ Source of truth: `aci.docx` (read in full, board image `word/media/image1.png` i
 | Reflect | B.5 | 1.0 | Deployment constraints (incomplete knowledge, changing rules, privacy, scale, technology); single most important improvement, justified |
 B.1 is the submission form: Name, ID, Industry/Domain, Organisation Type, Instructor prompt.
 
-### Deliverables checklist
+### Outstanding deliverables (2026-11-16)
 - [ ] `Question1_Group.ipynb` with outputs
-- [ ] `2025AG05062.pdf` LAKSHYA KANCHAN
 - [ ] `2025AG05772.pdf` SHREYANSH SHARMA
-- [ ] `2025AG05689.pdf` VINAY PRATAP SINGH BHADAURIA
-- [ ] `2025AG05076.pdf` ABHISHEK GHOSH
-- [ ] `2025AG05239.pdf` SATHIYALATHASHRI N
-- [ ] one zip with exactly these 6 files at top level, uploaded through the portal
+- [ ] one zip with the notebook and all five member PDFs at top level, uploaded through the portal
+
+The other four member PDFs are present in their respective folders. The notebook has four unexecuted
+code cells. Author sign-off and final ZIP verification remain in the README and member TODO files.
 
 ## 2. Q1 game analysis (from the board image)
 
@@ -139,16 +138,16 @@ Manual tasks (humans): each member fills in answer.md, runs the checker, builds 
 | A.3 "Support logical inference" | — | Forward chaining verifies each query |
 | Example profile | A 4-rule example fails ≥10 counts | `--profile example` lowers minimums for EXAMPLE.md only |
 
-## 9. Status (end of Phase 3, 2026-11-14)
+## 9. Current status (2026-11-16)
 | Item | State |
 |---|---|
-| Q1 engine + notebook | Done. `Question1_Group.ipynb` executed via nbconvert, no errors; AUTO_DEMO game ends with Black (computer) winning in 10 plies |
-| Tests | 63 pass after the audit: 23 game/notebook, 28 checker, 4 builder, 8 packaging |
+| Q1 engine + notebook | Implemented; latest submission checks found four unexecuted code cells |
+| Tests | 39 focused checker/PDF tests pass; broader submission checks hit incomplete notebook execution, missing WSL Bash and Windows symlink privileges |
 | Q2 tooling | check_kb.py, build_pdf.py, status.py, make_skeletons.py; GUIDE, EXAMPLE, KB_SYNTAX; 5 skeletons + 5 TODOs |
-| Packaging | check_submission.py + make_zip.sh. A real `make_zip.sh` run refuses (all 5 PDFs missing), as expected |
+| Packaging | check_submission.py + make_zip.sh exist; final ZIP still awaits 2025AG05772's PDF and completed notebook execution |
 | EXAMPLE.md | `check_kb.py --profile example` → PASS; full profile → FAIL on counts only (by design) |
 | Skeleton | `check_kb.py q2/2025AG05062/answer.md` → FAIL with 20 fill-in items |
-| Members' Q2 | pending for 4 members (manual); 2025AG05689 has a draft PDF awaiting the author's review |
+| Members' Q2 | Four PDFs present. 2025AG05689 passes the checker and has a visually checked, reformatted PDF; 2025AG05062, 2025AG05076 and 2025AG05239 supplied PDFs directly. Only 2025AG05772's PDF is missing; author sign-off remains for received PDFs |
 | Group number | 70 |
 | Git | pushed to origin/main (see the final message) |
 

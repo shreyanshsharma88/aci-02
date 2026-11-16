@@ -9,8 +9,8 @@
 | 4 | ABHISHEK GHOSH | 2025AG05076 | 2025ag05076@wilp.bits-pilani.ac.in |
 | 5 | SATHIYALATHASHRI N | 2025AG05239 | 2025ag05239@wilp.bits-pilani.ac.in |
 
-> Due today. Q1 is finished. Each member's Q2 PDF is still missing. Without all 5 PDFs the zip cannot be
-> built, and a member whose PDF is missing gets 0 for Q2. Start with section 1.
+> Four Q2 PDFs are present; only SHREYANSH SHARMA's (2025AG05772) is missing.
+> The Q1 notebook still has four unexecuted code cells. Complete these items before building the final ZIP.
 
 **Contents**
 1. [Manual steps: everything a human still has to do](#1-manual-steps-everything-a-human-still-has-to-do)
@@ -28,7 +28,7 @@
 
 The steps are grouped by who does them. Do them in order: A, B, C (all members in parallel), then D.
 
-### A. Repository owner (SHREYANSH SHARMA), about 10 minutes, do first
+### A. Repository owner (SHREYANSH SHARMA)
 
 1. Make the GitHub repository private. It is currently public, so anyone, including other groups, can copy
    the Q1 notebook, and every member's workplace content would be published once committed.
@@ -38,20 +38,6 @@ The steps are grouped by who does them. Do them in order: A, B, C (all members i
    Add people → add each member's GitHub username. Members who don't use git can work from a downloaded copy
    (see C.1) and send their PDF to the submitter instead.
 3. Pick the submitter, the one person who will build and upload the zip (section D). Tell the group who it is.
-4. Find the group number (from the course portal or group list) and put it in the notebook header and this
-   README:
-   ```bash
-   source .venv/bin/activate
-   GROUP=<GroupNo> python q1/build_notebook.py
-   jupyter nbconvert --to notebook --execute --inplace Question1_Group.ipynb
-   python -m pytest -q                       # must end with "passed", no failures
-   ```
-   Then replace `<GROUP NO>` at the top of this README, commit and push:
-   ```bash
-   git add Question1_Group.ipynb README.md
-   git commit -m "Add group number"
-   git push
-   ```
 
 ### B. Everyone: review Q1, about 15 minutes
 
@@ -64,13 +50,15 @@ Q1 is a group submission, so every member should know what is in it.
    `b3 c1`; `moves` lists your legal moves and `quit` stops the game. Set it back to `AUTO_DEMO = True` before
    the final notebook is saved: the submitted file must run without typing.
 4. If the group disagrees with an interpretation (for example, the knight's sideways L), change the flag in
-   `q1/game.py` (`ALLOW_SIDEWAYS_L`, `NO_MOVE_RULE`, `MAX_PLIES`), then rebuild, execute and test as in A.4. Some
+   `q1/game.py` (`ALLOW_SIDEWAYS_L`, `NO_MOVE_RULE`, `MAX_PLIES`), then rebuild, execute and test using section 4. Some
    notebook text quotes specific results, so re-read Sections 8–9 after any change.
 
-### C. Every member: write your own Q2, about 1.5–2 hours each
+### C. Outstanding Q2: SHREYANSH SHARMA (2025AG05772)
 
-Q2 is individual: your own workplace, your own words. Nothing has been written for you; only your name and
-BITS ID are pre-filled. Your personal checklist is in `q2/<your BITS ID>/TODO.md`.
+Only 2025AG05772 still needs an answer and PDF. The writing steps below apply to that member.
+The other four members' TODO files now contain only final review and submission checks.
+The three supplied PDFs are complete deliverables even though their local answer.md files remain skeletons;
+do not rebuild those skeletons over the supplied PDFs.
 
 C.0 Get the files (once)
 * With git: `git clone git@github.com:shreyanshsharma88/aci-02.git` (or the HTTPS URL), then `cd aci-02`.
@@ -127,13 +115,7 @@ C.1 to C.9, your steps
    ```
    Then tell the submitter it's done, and confirm your name and ID on the cover.
 
-**Ready-to-copy commands, one block per member** (venv active, from the repository folder):
-
-LAKSHYA KANCHAN (2025AG05062)
-```bash
-python q2/check_kb.py q2/2025AG05062/answer.md
-python q2/build_pdf.py q2/2025AG05062/answer.md
-```
+**Ready-to-copy commands for the outstanding PDF** (venv active, from the repository folder):
 
 SHREYANSH SHARMA (2025AG05772)
 ```bash
@@ -141,36 +123,16 @@ python q2/check_kb.py q2/2025AG05772/answer.md
 python q2/build_pdf.py q2/2025AG05772/answer.md
 ```
 
-VINAY PRATAP SINGH BHADAURIA (2025AG05689)
-```bash
-python q2/check_kb.py q2/2025AG05689/answer.md
-python q2/build_pdf.py q2/2025AG05689/answer.md
-```
-
-ABHISHEK GHOSH (2025AG05076)
-```bash
-python q2/check_kb.py q2/2025AG05076/answer.md
-python q2/build_pdf.py q2/2025AG05076/answer.md
-```
-
-SATHIYALATHASHRI N (2025AG05239)
-```bash
-python q2/check_kb.py q2/2025AG05239/answer.md
-python q2/build_pdf.py q2/2025AG05239/answer.md
-```
-
 ### D. The submitter: build, verify, upload, about 15 minutes, once all 5 are in
 
-1. Collect all 5 PDFs into their folders, with the exact names:
-   `q2/2025AG05062/2025AG05062.pdf`, `q2/2025AG05772/2025AG05772.pdf`, `q2/2025AG05689/2025AG05689.pdf`,
-   `q2/2025AG05076/2025AG05076.pdf`, `q2/2025AG05239/2025AG05239.pdf`.
-   (If a member pushed their answer.md, `git pull` and run `python q2/build_pdf.py q2/<ID>/answer.md` yourself.)
+1. Collect `q2/2025AG05772/2025AG05772.pdf`. The other four PDFs are already in their matching folders.
+   Execute the notebook with `AUTO_DEMO = True` and resolve the remaining submission checks before packaging.
 2. See who is still missing: `python q2/status.py`. Chase anyone not at "PDF built". A PDF a member sent you
    directly shows as "pending" here because their answer.md isn't in your copy; that is fine as long as the PDF is
    in place for step 3.
 3. Build and verify the zip (Git Bash on Windows):
    ```bash
-   GROUP=<GroupNo> bash make_zip.sh
+   GROUP=70 bash make_zip.sh
    ```
    If it says `REFUSING`, it lists exactly whose PDF is missing. Otherwise it builds
    `dist/<GroupNo>_ACI_Assignment2.zip` and runs `check_submission.py` on it. That must end with `RESULT: PASS`:
@@ -186,13 +148,12 @@ python q2/build_pdf.py q2/2025AG05239/answer.md
 ### E. Final checklist (tick before uploading)
 
 - [ ] Repository made private (A.1)
-- [ ] Group number in the notebook header and README (A.4)
 - [ ] Notebook executed, `AUTO_DEMO = True`, `python -m pytest -q` passes
-- [ ] LAKSHYA KANCHAN: checker PASS, `2025AG05062.pdf` built and proofread
+- [ ] LAKSHYA KANCHAN: author confirms supplied PDF is final and proofread
 - [ ] SHREYANSH SHARMA: checker PASS, `2025AG05772.pdf` built and proofread
-- [ ] VINAY PRATAP SINGH BHADAURIA: checker PASS, `2025AG05689.pdf` built and proofread
-- [ ] ABHISHEK GHOSH: checker PASS, `2025AG05076.pdf` built and proofread
-- [ ] SATHIYALATHASHRI N: checker PASS, `2025AG05239.pdf` built and proofread
+- [ ] VINAY PRATAP SINGH BHADAURIA: author confirms content is accurate and final
+- [ ] ABHISHEK GHOSH: author confirms supplied PDF is final and proofread
+- [ ] SATHIYALATHASHRI N: author confirms supplied PDF is final and proofread
 - [ ] `bash make_zip.sh` → `RESULT: PASS` (6 files)
 - [ ] All 5 members confirmed the zip contents
 - [ ] Uploaded through the portal before the deadline; confirmation shared
@@ -225,10 +186,11 @@ Rubric: Anchor (B.2) 1 · Apply (B.3) 2 · Analyse (B.4) 1 · Reflect (B.5) 1.
 
 ## 3. What has been done, and how
 
-### Q1: done, executed, tested
+### Q1: implemented; execution still needs completion
 
 * Code: `q1/game.py` is the single source. `q1/build_notebook.py` inlines it into `Question1_Group.ipynb`
-  (self-contained; no imports from the repo), and nbconvert executed it, so all outputs are saved in the file.
+   (self-contained; no imports from the repo). The latest submission check found four unexecuted code cells;
+   rerun the notebook before packaging.
 * Board: 3×3. White S a3 and H b3 (moves down); Black S b1 and H c1 (moves up). Human = White, moves first;
   computer = Black (`HUMAN_SIDE` to change).
 * Evaluation function (White's view, White minus Black, hand-set weights, no ML):
@@ -244,7 +206,11 @@ Rubric: Anchor (B.2) 1 · Apply (B.3) 2 · Analyse (B.4) 1 · Reflect (B.5) 1.
 * Analysis: depth vs nodes and time (table and plot); full evaluation vs material-only, measured by how often a
   shallow search picks a game-theoretically best move.
 
-### Q2: preparation only (no member content written)
+### Q2: four PDFs present; one outstanding
+
+Vinay's answer passes the checker and has a rebuilt, visually checked PDF. Lakshya, Abhishek and
+Sathiyalathashri supplied PDFs directly; their local answer.md files are still skeletons.
+Shreyansh's PDF is the only one not yet present.
 
 | File | Purpose |
 |---|---|
@@ -313,18 +279,19 @@ python check_submission.py [path/to.zip]
 
 ## 5. Status
 
-From the files present when this README was written. Run `python q2/status.py` for the live state.
+Updated 2026-11-16 from local files and checks. `python q2/status.py` reports local source status;
+for directly supplied PDFs, also check the PDF files themselves.
 
 | Item | Status |
 |---|---|
-| Q1 notebook | Done: executed with outputs, no errors |
-| Tests | 63 pass: 23 Q1 game/notebook, 28 checker, 4 PDF builder, 8 packaging |
+| Q1 notebook | Implemented; four code cells still need execution |
+| Tests | 39 focused checker/PDF tests pass; broader submission checks hit incomplete notebook execution, missing WSL Bash and Windows symlink privileges |
 | Q2 tooling, guide, example, skeletons | Done |
-| LAKSHYA KANCHAN (2025AG05062) Q2 | pending: skeleton only |
+| LAKSHYA KANCHAN (2025AG05062) Q2 | Supplied PDF received; author sign-off remains |
 | SHREYANSH SHARMA (2025AG05772) Q2 | pending: skeleton only |
-| VINAY PRATAP SINGH BHADAURIA (2025AG05689) Q2 | PDF built from a draft; needs the author's review |
-| ABHISHEK GHOSH (2025AG05076) Q2 | pending: skeleton only |
-| SATHIYALATHASHRI N (2025AG05239) Q2 | pending: skeleton only |
+| VINAY PRATAP SINGH BHADAURIA (2025AG05689) Q2 | Checker passes; PDF revised with explanatory prose, grouped facts and step-by-step query decisions; author sign-off remains |
+| ABHISHEK GHOSH (2025AG05076) Q2 | Supplied PDF received; author sign-off remains |
+| SATHIYALATHASHRI N (2025AG05239) Q2 | Supplied PDF received; author sign-off remains |
 | Repository private | to do (A.1) |
 | Group number | Done (70) |
 | Final zip | not built: `make_zip.sh` refuses until all 5 PDFs exist |
